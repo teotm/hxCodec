@@ -1,82 +1,97 @@
-# hxCodec - Native video support for OpenFL & HaxeFlixel
+# hxCodec
+A library which adds native video support for OpenFL and HaxeFlixel.
 
-[Original Repository](https://github.com/polybiusproxy/PolyEngine).  
-[Click here to check the roadmap of hxCodec](https://github.com/brightfyregit/Friday-Night-Funkin-Mp4-Video-Support/projects/1).
+**[Original repository](https://github.com/polybiusproxy/PolyEngine)**          
+**[Click here to check the roadmap](https://github.com/polybiusproxy/hxCodec/projects/1)**
 
-## Table of Contents
-- [Instructions](#instructions)  
-- [Building](#building)  
-- [Credits](#credits)  
+--------------------------
 
-## Instructions
-**These are for Friday Night Funkin' mostly so it may not work for your HaxeFlixel project.**
+## Instructions for Friday Night Funkin'
 
-### 1. Install the Haxelib:
-
-```cmd
-haxelib git hxCodec https://github.com/polybiusproxy/hxCodec.git
+1. Install the Haxelib
+You can install it through haxelib:
+```
+haxelib install hxCodec
 ```
 
-### 2. Create a folder called `videos` in `assets/preload` folder:
+You can also install it through Git for the latest updates:
+```
+haxelib git hxCodec https://github.com/polybiusproxy/hxCodec
+```
 
-### 3. **OPTIONAL: If your PC is ARM64, add this code in `Project.xml`:**
+2. Add this code in `Project.xml`
+```xml
+<haxelib name="hxCodec"/>
+```
 
+**OPTIONAL: If your PC is ARM64, add this code also:**
 ```xml
 <haxedef name="HXCPP_ARM64" />
 ```
 
-### 3. Edit `Paths.hx`
+**OPTIONAL: If you want debug traces in your console, add this code also:**
+```xml
+<!-- Show debug traces for hxCodec -->
+<haxedef name="HXC_DEBUG_TRACE" if="debug" />
+```
+
+3. Create a folder called `videos` in your `assets/preload` folder.
+
+4. Add this code in `Paths.hx`:
 ```haxe
-inline static public function video(key:String, ?library:String)
+inline static public function video(key:String)
 {
-	return getPath('videos/$key.mp4', BINARY, library);
+	return 'assets/videos/$key';
 }
 ```
 
-### 4. Playing videos
+--------------------------
 
-1. Put your video in `assets/preload/videos`.
-2. Create somewhere in PlayState:
+### Playing videos
+
+1. Put your video in the videos folder.
+
+**Note: hxCodec supports all the video formats VLC can play!**
+
+2. Add somewhere in PlayState:
 ```haxe
-import vlc.MP4Handler;
-
-var video:MP4Handler;
-
-function playCutscene(name:String)
+function playCutscene(name:String, atEndOfSong:Bool = false)
 {
 	inCutscene = true;
+	FlxG.sound.music.stop();
 
-	video = new MP4Handler();
+	var video:VideoHandler = new VideoHandler();
 	video.finishCallback = function()
 	{
-		startCountdown();
-	}
-	video.playVideo(Paths.video(name));
-}
-
-function playEndCutscene(name:String)
-{
-	inCutscene = true;
-
-	video = new MP4Handler();
-	video.finishCallback = function()
-	{
-		SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
-		LoadingState.loadAndSwitchState(new PlayState());
+		if (atEndOfSong)
+		{
+			if (storyPlaylist.length <= 0)
+				FlxG.switchState(new StoryMenuState());
+			else
+			{
+				SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
+				FlxG.switchState(new PlayState());
+			}
+		}
+		else
+			startCountdown();
 	}
 	video.playVideo(Paths.video(name));
 }
 ```
 
-### EXAMPLE
+--------------------------
+
+#### Examples
+
 At the PlayState "create()" function:
 ```haxe
 switch (curSong.toLowerCase())
 {
-	case 'too-slow':
-		playCutscene('tooslowcutscene1');
-	case 'you-cant-run':
-		playCutscene('tooslowcutscene2');
+	case 'song1':
+		playCutscene('song1scene.asf');
+	case 'song2':
+		playCutscene('song2scene.avi');
 	default:
 		startCountdown();
 }
@@ -84,32 +99,89 @@ switch (curSong.toLowerCase())
 
 At the PlayState "endSong()" function:
 ```haxe
-if (SONG.song.toLowerCase() == 'triple-trouble')
-	playEndCutscene('soundtestcodes');
+if (SONG.song.toLowerCase() == 'song1')
+	playCutscene('song1scene.mjpeg', true);
 ```
 
-## BUILDING
+#### Examples for Kade Engine 1.8
+
+At the PlayState "create()" function:
+```haxe
+generateSong(SONG.songId);
+
+switch (curSong.toLowerCase())
+{
+	case 'song1':
+		playCutscene('song1scene.mp4');
+	default:
+		startCountdown();
+}
+
+```
+
+At the PlayState "endSong()" function:
+```haxe
+PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0], diff);
+FlxG.sound.music.stop();
+
+switch (curSong.toLowerCase())
+{
+	case 'song1':
+		playCutscene('song1scene.ogg', true);
+	case 'song2':
+		playCutscene('song2scene.wav', true);
+}
+```
+
+--------------------------
+
+## Building
+
 ### Windows
+
 You don't need any special instructions in order to build for Windows.
-Just pull the "lime build windows".
+Just pull the `lime build windows` command and the library will be building with your game.
+
+### macOS
+
+Currently, building for macOS isn't supported because we are missing the macOS build of LibVLC.
+
+**However, if you got LibVLC to build and work on Mac, please make a pull request!**
 
 ### Linux
-In order to make your game work with the library, every Linux user (this includes the player) **has to download** "libvlc-dev" and "libvlccore-dev" from your distro's package manager.
-You can also install them through the terminal:
-```bash
+
+In order to make your game work with the library, you **have to install** `libvlc-dev` and `libvlccore-dev` from your distro's package manager.
+
+Example with APT:
+```
 sudo apt-get install libvlc-dev
 sudo apt-get install libvlccore-dev
+sudo apt-get install vlc-bin
 ```
 
 ### Android
-Currently, hxCodec will search the videos only on the external storage (`/storage/emulated/0/appname/yourvideo.mp4`).
-This is not suitable for games and will be fixed soon.
+
+In order for hxCodec to work on Android, you will need a library called [extension-androidtools](https://github.com/jigsaw-4277821/extension-androidtools).
+
+To install it, enter the following in a terminal:
+```
+haxelib git extension-androidtools https://github.com/jigsaw-4277821/extension-androidtools.git
+```
+
+Next, add this into `Project.xml`
+```xml
+<haxelib name="extension-androidtools" if="android" />
+```
+
+**Currently, hxCodec will search the videos only on the external storage of the device (`/storage/emulated/0/MyAppName/assets/videos/yourvideo.mp4`).
+You will also have to put the location manually in the paths.**
+
+--------------------------
 
 ## Credits
 
-- [PolybiusProxy (me!)](https://github.com/polybiusproxy) - Creator of hxCodec.
+- [PolybiusProxy](https://github.com/polybiusproxy) - Creator of hxCodec.
 - [datee](https://github.com/datee) - Creator of HaxeVLC.
-- [BrightFyre](https://github.com/brightfyregit) - Creator of repository.
-- [GWebDev](https://github.com/GrowtopiaFli) - Inspiring me to do this.
-- [CryBit](https://github.com/CryBitDev) - fixing my shit lolololoolol
-- The contributors. <!-- forgot this existed and i added contributors on the credits lol -->
+- [Jigsaw](https://github.com/jigsaw-4277821) - Android support and x86 Support.
+- [Erizur](https://github.com/Erizur) - Linux support.
+- The contributors.
