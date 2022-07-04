@@ -2,18 +2,18 @@ package;
 
 import flixel.FlxSprite;
 
-class VideoSprite extends FlxSprite
+class MP4Sprite extends FlxSprite
 {
 	public var readyCallback:Void->Void = null;
 	public var finishCallback:Void->Void = null;
 
-	public var bitmap:VideoHandler;
+	public var bitmap:MP4Handler;
 
 	public function new(x:Float = 0, y:Float = 0)
 	{
 		super(x, y);
 
-		bitmap = new VideoHandler();
+		bitmap = new MP4Handler();
 		bitmap.visible = false;
 
 		bitmap.readyCallback = function()
