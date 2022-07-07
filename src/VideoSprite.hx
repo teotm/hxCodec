@@ -2,7 +2,7 @@ package;
 
 import flixel.FlxSprite;
 
-class MP4Sprite extends FlxSprite
+class VideoSprite extends FlxSprite
 {
 	public var readyCallback:Void->Void = null;
 	public var finishCallback:Void->Void = null;
