@@ -1,4 +1,4 @@
-package;
+package vidSupport;
 
 #if android
 import android.Tools;
