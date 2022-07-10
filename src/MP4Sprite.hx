@@ -1,4 +1,4 @@
-package;
+package vidSupport;
 
 import flixel.FlxSprite;
 
