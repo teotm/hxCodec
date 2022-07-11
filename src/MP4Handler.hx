@@ -1,4 +1,4 @@
-package vidSupport;
+package;
 
 #if android
 import android.Tools;
@@ -83,7 +83,6 @@ class MP4Handler extends VLCBitmap {
 		if (FlxG.stage.hasEventListener(Event.RESIZE))
 			FlxG.stage.removeEventListener(Event.RESIZE, resize);
 
-<<<<<<< HEAD
 		if (FlxG.autoPause) {
 			if (FlxG.signals.focusGained.has(resume))
 				FlxG.signals.focusGained.remove(resume);
@@ -91,13 +90,6 @@ class MP4Handler extends VLCBitmap {
 			if (FlxG.signals.focusLost.has(pause))
 				FlxG.signals.focusLost.remove(pause);
 		}
-=======
-		if (FlxG.signals.focusGained.has(resume))
-			FlxG.signals.focusGained.remove(resume);
-
-		if (FlxG.signals.focusLost.has(pause))
-			FlxG.signals.focusLost.remove(pause);
->>>>>>> 736bca802b0cd1c901d3b3d57e30b6296df690b5
 
 		dispose();
 
@@ -128,15 +120,10 @@ class MP4Handler extends VLCBitmap {
 		FlxG.stage.addEventListener(Event.ENTER_FRAME, update);
 		FlxG.stage.addEventListener(Event.RESIZE, resize);
 
-<<<<<<< HEAD
 		if (FlxG.autoPause) {
 			FlxG.signals.focusGained.add(resume);
 			FlxG.signals.focusLost.add(pause);
 		}
-=======
-		FlxG.signals.focusGained.add(resume);
-		FlxG.signals.focusLost.add(pause);
->>>>>>> 736bca802b0cd1c901d3b3d57e30b6296df690b5
 	}
 
 	private function calc(ind:Int):Float {
