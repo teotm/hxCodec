@@ -4,7 +4,10 @@
 	<!-- doesn't work for now, switch which one to use by commenting, decommenting which line for now ig-->
 	<!--<assets path="include/Windows" rename='' if="windows"--> <!--unless="64bit"-->
 	<assets path="include/Windows64" rename='' if="windows" /> <!--unless="32bit"-->
+<<<<<<< HEAD
     	<assets path="include/Mac" rename='../MacOS' if="mac"/>
+=======
+>>>>>>> 736bca802b0cd1c901d3b3d57e30b6296df690b5
 
 	<!-- <assets path="NOTICE-LINUX.md" rename='NOTICE.txt' if="linux" /> -->
 
