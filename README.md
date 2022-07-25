@@ -21,15 +21,10 @@ haxelib git hxCodec https://github.com/polybiusproxy/hxCodec
 
 2. Add this code in `Project.xml`
 ```xml
-<haxelib name="hxCodec"/>
+<haxelib name="hxCodec" if="desktop || android" />
 ```
 
-**OPTIONAL: If your PC is ARM64, add this code also:**
-```xml
-<haxedef name="HXCPP_ARM64" />
-```
-
-**OPTIONAL: If you want debug traces in your console, add this code also:**
+**OPTIONAL: If you want debug traces in your console, add this code:**
 ```xml
 <!-- Show debug traces for hxCodec -->
 <haxedef name="HXC_DEBUG_TRACE" if="debug" />
@@ -175,8 +170,8 @@ You will also have to put the location manually in the paths.**
 ## Credits
 
 - [PolybiusProxy](https://github.com/polybiusproxy) - Creator of hxCodec.
+- [Jigsaw](https://github.com/jigsaw-4277821) - Programmer, Android support and x86 Support.
 - [datee](https://github.com/datee) - Creator of HaxeVLC.
-- [Jigsaw](https://github.com/jigsaw-4277821) - Android support and x86 Support.
 - [Erizur](https://github.com/Erizur) - Linux support.
 - [BushTrain460615](https://github.com/BushTrain460615) - macOS Support.
 - The contributors.
