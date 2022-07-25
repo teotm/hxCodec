@@ -10,9 +10,9 @@ import vlc.VLCBitmap;
 
 /**
  * Play a video using cpp.
- * Use bitmap to connect to a graphic or use `VideoSprite`.
+ * Use bitmap to connect to a graphic or use `TheVidSprite`.
  */
-class VideoHandler extends VLCBitmap
+class TheVidHandler extends VLCBitmap
 {
 	public var canSkip:Bool = true;
 	public var canUseSound:Bool = true;
