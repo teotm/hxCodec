@@ -6,16 +6,18 @@ A library which adds native video support for OpenFL and HaxeFlixel.
 
 --------------------------
 
+- Note: This fork is made specifically for people who use Kade Engine 1.5.3 (or higher) who don't want to edit the `VideoHandler.hx` class and people who want to have Video support that VLC has, with Mac/Linux/Android support too.
+
 ## Instructions for Friday Night Funkin'
 
 1. Install the Haxelib
 You can install it through haxelib:
-```
+```cmd
 haxelib install hxCodec
 ```
 
 You can also install it through Git for the latest updates:
-```
+```cmd
 haxelib git hxCodec https://github.com/polybiusproxy/hxCodec
 ```
 
@@ -55,7 +57,7 @@ function playCutscene(name:String, atEndOfSong:Bool = false)
 	inCutscene = true;
 	FlxG.sound.music.stop();
 
-	var video:VideoHandler = new VideoHandler();
+	var video:TheVidHandler = new TheVidHandler();
 	video.finishCallback = function()
 	{
 		if (atEndOfSong)
