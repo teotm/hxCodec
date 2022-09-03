@@ -7,7 +7,6 @@ import flixel.FlxG;
 import openfl.events.Event;
 import lime.app.Application;
 import vlc.VLCBitmap;
-// test
 
 /**
  * Play a video using cpp.
