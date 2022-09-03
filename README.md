@@ -4,9 +4,11 @@ A library which adds native video support for OpenFL and HaxeFlixel.
 **[Original repository](https://github.com/polybiusproxy/PolyEngine)**          
 **[Click here to check the roadmap](https://github.com/polybiusproxy/hxCodec/projects/1)**
 
---------------------------
+----------------------------------
 
 - Note: This fork is made specifically for people who use Kade Engine 1.5.3 (or higher) who don't want to edit the `VideoHandler.hx` class and people who want to have Video support that VLC has, with Mac/Linux/Android support too.
+
+----------------------------------
 
 ## Instructions for Friday Night Funkin'
 
