@@ -10,7 +10,7 @@ import vlc.VLCBitmap;
 
 /**
  * Handles video playback.
- * Use bitmap to connect to a graphic or use `VideoSprite`.
+ * Use bitmap to connect to a graphic or use `TheVidSprite`.
  */
 class TheVidHandler extends VLCBitmap
 {
