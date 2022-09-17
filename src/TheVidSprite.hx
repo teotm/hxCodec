@@ -3,8 +3,7 @@ package;
 import flixel.FlxSprite;
 
 /**
- * Make a video sprite.
- * You can use this to play a video as a sprite.
+ * This class allows you to play videos using sprites (FlxSprite).
  */
 
 class TheVidSprite extends FlxSprite
